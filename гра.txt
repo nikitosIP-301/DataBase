@@ -1,0 +1,112 @@
+private void button1_Click_1(object sender, EventArgs e)
+{
+    using (conn = new System.Data.SqlClient.SqlConnection("Server=" + textBox1.Text + ";Database=" + textBox2.Text + ";uid=" + textBox3.Text + ";pwd=" + textBox4.Text + ""))
+    {
+        try
+        {
+            conn.Open();
+            MessageBox.Show("Вы подключились к БД");
+            this.Close();
+
+            Data.value = "Server=" + textBox1.Text + ";Database=" + textBox2.Text + ";uid=" + textBox3.Text + ";pwd=" + textBox4.Text + "";
+        }
+        catch (Exception help)
+        {
+            MessageBox.Show(help.Message);
+        }
+    }
+
+
+
+
+
+
+private void подключитьсяКБДToolStripMenuItem_Click_1(object sender, EventArgs e)
+{
+    logwin = new Form1();
+    logwin.ShowDialog();
+    textBox1.Clear();
+    textBox2.Clear();
+    textBox3.Clear();
+    textBox4.Clear();
+}
+
+
+
+
+
+
+        public void upd(string tabnam)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using(System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(Data.value))
+                {
+                    using (SqlDataAdapter RD = new SqlDataAdapter("SELECT * FROM "+ tabnam, conn))
+                    {
+                        RD.Fill(dt);
+                    }
+                }
+                dataGridView1.DataSource = dt;
+            }
+        }
+
+
+        private SqlConnection conn;
+        private Form1 logwin;
+
+
+
+
+ private void button1_Click(object sender, EventArgs e)
+ {
+     using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(Data.value))
+     {
+         try
+         {
+             conn.Open();
+             using (SqlCommand cmd = new SqlCommand("INSERT INTO Buyy (Obj, Zatati, Colvo) VALUES('" + textBox1.Text + "', '" + textBox2.Text + "', '" + textBox3.Text + "')", conn))
+             try
+             {
+                 cmd.ExecuteNonQuery();
+                     Form2 ff = (Form2)this.Owner;
+                     ff.риелторыToolStripMenuItem_Click(sender, e);
+                     MessageBox.Show("Добавлено");
+                     Close();
+             }
+             catch(Exception helpExec)
+             {
+                 MessageBox.Show(helpExec.Message);
+
+             }
+         }
+         catch(Exception helpConn)
+         {
+             MessageBox.Show(helpConn.Message);
+         }
+     }
+ }
+
+
+
+
+
+
+        private SqlConnection conn;
+        private Form1 logwin;
+        private Form3 addIt;
+        private Form4 Usl;
+private System.Windows.Forms.MenuStrip menuStrip1;
+private System.Windows.Forms.ToolStripMenuItem менюToolStripMenuItem;
+private System.Windows.Forms.ToolStripMenuItem подключитьсяКБДToolStripMenuItem;
+private System.Windows.Forms.ToolStripMenuItem выводДанныхToolStripMenuItem;
+private System.Windows.Forms.ToolStripMenuItem риелторыToolStripMenuItem;
+private DataGridView dataGridView1;
+private ToolStripMenuItem добавитьДанныеToolStripMenuItem;
+private ToolStripMenuItem риелторыToolStripMenuItem1;
+private ToolStripMenuItem закупкиToolStripMenuItem;
+private ToolStripMenuItem работникиToolStripMenuItem;
+private ToolStripMenuItem услToolStripMenuItem;
+private ToolStripMenuItem закупкиToolStripMenuItem1;
+private ToolStripMenuItem работникиToolStripMenuItem1;
+private ToolStripMenuItem услугиToolStripMenuItem;
